@@ -7,6 +7,7 @@ import { Bar_search } from '../components/global/bar_search';
 import { Projets } from "../components/global/projet_realises";
 import { Button_contact } from "../components/global/button_contact";
 import { Exemple_code } from '../components/informatique/exemple_code';
+import {Form_Add_Employee} from '../components/global/form_add_employee';
 import { Form_Add_Produit } from '../components/global/form_add_product';
 import { Confirm_Delete_Product } from '../components/global/confirm_delete_product';
 import {Employees} from '..//components/global/employees';
@@ -24,12 +25,13 @@ const Informatique = () => {
                 <Bar_search />
                 <Technologie />
                 <Exemple_code />
-                <Employees/>
+                <Employees setShowComponent={setShowComponent}/>
                 <Projets setShowComponent={setShowComponent} />
               </div>
             </div>
-            {(showComponent == 1 || showComponent?.id == 1) && <Form_Add_Produit setShowComponent={setShowComponent} projectToEdit={showComponent} />}
-            {(showComponent?.id == 2) && <Confirm_Delete_Product setShowComponent={setShowComponent} projectToEdit={showComponent} projectToDelete={showComponent} />}
+            {(showComponent?.id == 1) && <Form_Add_Produit setShowComponent={setShowComponent} projectToEdit={showComponent} />}
+            {(showComponent?.id == 2) && <Confirm_Delete_Product setShowComponent={setShowComponent} projectToEdit={showComponent} elementToDelete={showComponent} />}
+            {(showComponent?.id == 3) && <Form_Add_Employee setShowComponent={setShowComponent}/>}
             <Button_contact />
             <ToastContainer position="bottom-center" />
           </div>

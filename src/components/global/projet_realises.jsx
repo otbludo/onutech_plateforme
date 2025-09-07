@@ -21,7 +21,7 @@ export const Projets = ({ setShowComponent }) => {
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-2xl font-bold">Designs récents</h2>
                 <button
-                    onClick={() => setShowComponent(1)}
+                    onClick={() => setShowComponent({id: 1})}
                     className="w-9 h-9 rounded-full bg-white flex items-center justify-center border border-gray-200 hover:bg-gray-50 shadow-md">
                     <PlusIcon size={20} className="text-gray-500" />
                 </button>
@@ -66,7 +66,7 @@ export const Projets = ({ setShowComponent }) => {
                                                         <Pencil size={15} className="text-gray-500" />
                                                     </button>
                                                     <button
-                                                        onClick={() => setShowComponent({ id: 2, project: task, document_id: data._id })}
+                                                        onClick={() => setShowComponent({ id: 2, element: task, document_id: data._id })}
                                                         className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-red-200 hover:bg-gray-50 shadow-md">
                                                         <Trash size={15} className="text-red-500" />
                                                     </button>

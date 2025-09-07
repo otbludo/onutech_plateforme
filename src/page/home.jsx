@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import {ToastContainer} from 'react-toastify';
 import { Footer } from '../components/global/footer';
 import { Sidebar } from '../components/global/sidebar';
-import { Bar_search } from '../components/global/bar_search';
+
 import { Button_contact } from "../components/global/button_contact";
 import {Resume} from '../components/home/resume';
 import {ClientLogos} from '../components/home/client_logo';
 import {FAQ} from '../components/home/FAQ'
 import { Form_Add_Produit } from '../components/global/form_add_product';
 import { Confirm_Delete_Product } from '../components/global/confirm_delete_product';
+import {Homecomponent} from '../components/home/home';
 
 const Home = () => {
   const [showComponent, setShowComponent] = useState(0)
@@ -21,7 +22,8 @@ const Home = () => {
 
             <div className="flex flex-col flex-1 px-[10px] md:px-[20px] md:pt-[20px] overflow-hidden">
               <div className="flex-1 overflow-y-auto no-scrollbar md:shadow-[0_-10px_25px_-5px_rgba(0,0,0,0.2)] rounded-t-2xl md:pt-6">
-                <Bar_search />
+               
+                <Homecomponent/>
                 <Resume/>
                 <ClientLogos/>
                 <FAQ/>

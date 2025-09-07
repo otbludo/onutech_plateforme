@@ -8,7 +8,7 @@ import {
 
 export const Resume = () => {
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center mt-[100px]">
       <div className="max-w-5xl mx-auto text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 arsenal-sc-regular">
           Why Choose
@@ -46,7 +46,7 @@ export const Resume = () => {
             <p className="text-sm text-gray-500 mb-3">
               Showcase your project to stand out among all
             </p>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-full text-sm">
+            <button className="bg-[#003A1E] text-white px-4 py-2 rounded-xl text-sm">
               Add Work
             </button>
           </div>
@@ -72,7 +72,7 @@ export const Resume = () => {
             <p className="text-sm text-gray-500 mb-3">
               Create a professional resume using our built-in resume builder
             </p>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-full text-sm">
+            <button className="bg-[#003A1E] text-white px-4 py-2 rounded-xl text-sm">
               Build Resume
             </button>
           </div>

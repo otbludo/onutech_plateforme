@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Search, X } from 'lucide-react';
+import { toast } from 'react-toastify';
 import { motion } from "framer-motion";
 import { Generative_groq } from '../../api/post/groq_generate';
 
@@ -25,45 +26,57 @@ export const Bar_search = () => {
         if (isSuccess) {
             setShowresponse(true);
         }
-    }, [isSuccess]);
+        if (isError) {
+            toast.error("error", error.TypeError);
+            console.log( error)
+        }
+
+    }, [isSuccess, isError]);
 
     return (
         <div className="relative max-w-4xl mx-auto mb-[120px] ">
-            <div className={`absolute  w-full  h-auto z-[100] p-4  ${showresponse && "bg-white  rounded-2xl shadow-lg"} `}>
-                <form onSubmit={handleSubmit} className="absolute left-0 right-0 mx-4">
-                    <Search className="absolute left-4 top-3.5 text-gray-500" size={20} />
-                    <textarea
-                        name="project"
-                        onChange={handleChange}
-                        value={formData.project}
-                        placeholder="Posez une question en rapport avec Onutech ou l'un de ses secteurs d'activité!"
-                        className="w-full  pl-12 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500  resize-none "
-                    />
-                    <button
-                        type="submit"
-                        className="absolute right-2 top-2 bg-gray-100 p-2 rounded-full border border-gray-200">
+            <div className={`absolute  w-full  h-auto z-[100] p-4  ${showresponse && "bg-white  rounded-2xl "} `}>
 
-                        {isPending ?
-                            "Envoi en cours..."
-                            :
+
+                <div className="max-w-3xl mx-auto mb-16">
+                    <form
+                        onSubmit={handleSubmit}
+                        className="bg-white rounded-full p-2 flex flex-col md:flex-row  shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
+                        <div className="flex items-center flex-1 px-4 py-2">
                             <svg
-                                width="16"
-                                height="16"
-                                viewBox="0 0 24 24"
-                                fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5 text-gray-400 mr-2"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
                             >
                                 <path
-                                    d="M9 18L15 12L9 6"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                                 />
                             </svg>
-                        }
-                    </button>
-                </form>
+                            <input
+                                type="text"
+                                placeholder="e.g. UX Designer"
+                                className="w-full outline-none text-gray-700"
+                            />
+                        </div>
+
+                        <button
+                            type="submit"
+                            disabled={isPending}
+                            className="bg-[#003A1E] text-white font-medium rounded-full px-8 py-3 transition-colors">
+
+                            {isPending ?
+                                "Envoi en cours..."
+                                :
+                                "Search"
+                            }
+                        </button>
+                    </form>
+                </div>
                 {showresponse &&
                     <motion.div
                         key="response"
