@@ -30,8 +30,8 @@ const Informatique = () => {
               </div>
             </div>
             {(showComponent?.id == 1) && <Form_Add_Produit setShowComponent={setShowComponent} projectToEdit={showComponent} />}
-            {(showComponent?.id == 2) && <Confirm_Delete_Product setShowComponent={setShowComponent} projectToEdit={showComponent} elementToDelete={showComponent} />}
-            {(showComponent?.id == 3) && <Form_Add_Employee setShowComponent={setShowComponent}/>}
+            {(showComponent?.id == 2) && <Confirm_Delete_Product setShowComponent={setShowComponent} elementToDelete={showComponent} />}
+            {(showComponent?.id == 3) && <Form_Add_Employee setShowComponent={setShowComponent} employeeToEdit={showComponent}/>}
             <Button_contact />
             <ToastContainer position="bottom-center" />
           </div>

@@ -74,7 +74,7 @@ export const Employees = ({ setShowComponent }) => {
                   .38-1.81.588-1.81h3.461a1 1 0 
                   00.951-.69l1.07-3.292z" />
               </svg>
-              <span className="text-gray-700 ml-1">{emp.notation}</span>
+              <span className="text-gray-700 ml-1">{emp.notation} / 100</span>
             </div>
             <h3 className="text-xl font-bold text-center mb-1">
               {emp.name}
@@ -92,6 +92,7 @@ export const Employees = ({ setShowComponent }) => {
             </div>
             <div className="flex w-full gap-4 items-end justify-end">
               <button
+                onClick={() => setShowComponent({ id: 3, employee: emp, document_id: emp._id })}
                 className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-gray-200 hover:bg-gray-50 shadow-md">
                 <Pencil size={15} className="text-gray-500" />
               </button>

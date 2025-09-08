@@ -20,10 +20,6 @@ export function Form_Add_Produit({ setShowComponent, projectToEdit }) {
     const { isPending: isPending_Add_project, isSuccess: isSuccess_Add_project, isError: isError_Add_project, error: error_Add_project, data: data_Add_project, mutate: mutate_Add_project } = Add_project();
     const { isPending: isPending_Edit_project, isSuccess: isSuccess_Edit_project, isError: isError_Edit_project, error: error_Edit_project, data: data_Edit_project, mutate: mutate_Edit_project } = Edit_project();
 
-    const [previewImage, setPreviewImage] = useState(
-        projectToEdit?.project?.image ? `${API_URL}/api/v1/images/${projectToEdit?.project?.image}` : null
-    );
-
     const [formData, setFormData] = useState({
         collection: collectionName,
         document_id: projectToEdit?.document_id || (data_get_Projet?.[0]?._id || ""),
@@ -33,6 +29,10 @@ export function Form_Add_Produit({ setShowComponent, projectToEdit }) {
         link: projectToEdit?.project?.link || "",
         dueDate: projectToEdit?.project?.dueDate || ""
     });
+
+    const [previewImage, setPreviewImage] = useState(
+        projectToEdit?.project?.image ? `${API_URL}/api/v1/images/${projectToEdit?.project?.image}` : null
+    );
 
     const fileInputRef = useRef(null); // ref pour déclencher le click
 
@@ -181,7 +181,6 @@ export function Form_Add_Produit({ setShowComponent, projectToEdit }) {
                             </div>
                         </div>
                     </div>
-                    {/* Form Section */}
                     <div className="w-full  mt-4">
                         <div className="space-y-4">
                             <div className="flex  gap-4">
@@ -262,32 +261,24 @@ export function Form_Add_Produit({ setShowComponent, projectToEdit }) {
 
                     </div>
                 </form>
-                {/* Right content - visual examples */}
                 <div className="hidden md:flex w-1/2 bg-gradient-to-b from-[#FAFDE0] to-red-100 relative">
                     <div className="absolute inset-0 overflow-hidden">
-
-                        {/* <div className="absolute top-[10%] right-[10%] w-64 h-72 bg-purple-600 rounded-lg shadow-lg"></div> */}
-                        <div className="absolute top-[20%] left-[10%] w-32 h-32 bg-white rounded-lg shadow-lg p-4"></div>
-                        <div className="absolute top-[35%] left-[20%] w-56 h-64 bg-black rounded-lg shadow-lg p-6 text-white">
-                            <div className="text-lg font-bold mt-4">
-                                LE MEILLEUR DU SHOPPING BONNES AFFAIRES
+                        <div className="absolute top-[20%] left-[10%] w-32 h-32 bg-white/30 backdrop-blur-md border border-white/20 rounded-lg shadow-lg p-4"></div>
+                        <div className="absolute top-[35%] left-[20%] w-56 h-64 bg-orange-400  backdrop-blur-md border border-white/20 rounded-lg shadow-lg p-6 text-white">
+                        </div>
+                        <div className="absolute bottom-[15%] right-[15%] w-40 h-40 bg-gradient-to-tr from-orange-300/80 to-yellow-400/50 rounded-full shadow-lg opacity-90"></div>
+                        <div className="absolute bottom-[30%] right-[10%] w-40 h-72 bg-white/20 backdrop-blur-md border-4 border-white/30 rounded-3xl shadow-lg p-2">
+                            <div className="bg-gradient-to-b from-[#003A1E]/80 to-green-500/50 h-full w-full rounded-2xl p-2">
+                                <h1 className="text-xl font-semibold text-gray-800">
+                                    Projets Réalisés
+                                </h1>
+                                <p className="text-sm text-gray-600 mt-2">
+                                    Mettez en avant les projets réalisés par votre startup.
+                                </p>
                             </div>
                         </div>
-                        <div className="absolute bottom-[15%] right-[15%] w-40 h-40 bg-orange-300 rounded-full shadow-lg"></div>
-                        <div className="absolute bottom-[30%] right-[10%] w-40 h-72 bg-white rounded-3xl shadow-lg border-4 border-white p-2">
-                            <div className="bg-[#003A1E] h-full w-full rounded-2xl"></div>
-                        </div>
-                        {/* <div className="absolute top-[15%] right-[30%] w-48 h-24 bg-white rounded-lg shadow-lg p-2">
-                            <div className="text-xs text-gray-500">
-                                PALETTE DE COULEURS DE MARQUE
-                            </div>
-                            <div className="flex gap-2 mt-2">
-                                <div className="w-8 h-8 bg-black rounded"></div>
-                                <div className="w-8 h-8 bg-purple-600 rounded"></div>
-                                <div className="w-8 h-8 bg-orange-200 rounded"></div>
-                            </div>
-                        </div> */}
                     </div>
+
                 </div>
             </div>
         </div >

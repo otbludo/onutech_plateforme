@@ -2,13 +2,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const Add_emplyee = () => {
+export const Add_partner = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: ['Add_emplyee'],
+    mutationKey: ['Add_partner'],
     mutationFn: async (fd) => {
-      const response = await fetch(`${API_URL}/api/v1/add_emplyees`, {
+      const response = await fetch(`${API_URL}/api/v1/add_partner`, {
         method: "POST",
         body: fd,
       });
@@ -18,7 +18,7 @@ export const Add_emplyee = () => {
 
     // après succès, on refetch la liste des projets
     onSuccess: () => {
-      queryClient.invalidateQueries(["Get_Employe"]);
+      queryClient.invalidateQueries(["Get_partner"]);
     },
   });
 };

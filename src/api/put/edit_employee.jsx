@@ -1,15 +1,16 @@
+// app/api/post/add_project.js
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const Add_emplyee = () => {
+export const Edit_emplyee = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: ['Add_emplyee'],
+    mutationKey: ['Edit_emplyee'],
     mutationFn: async (fd) => {
-      const response = await fetch(`${API_URL}/api/v1/add_emplyees`, {
-        method: "POST",
+      const response = await fetch(`${API_URL}/api/v1/update_emplyees`, {
+        method: "PUT",
         body: fd,
       });
 
