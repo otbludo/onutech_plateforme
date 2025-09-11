@@ -3,10 +3,12 @@ import { toast } from 'react-toastify';
 import { useLocation } from "react-router-dom";
 import { X, UploadIcon, PlusIcon } from 'lucide-react';
 
-import {Add_partner} from '../../api/post/add_partner';
+import { Get_partner } from '../../api/get/get_partner';
+import { Add_partner } from '../../api/post/add_partner';
+import { Edit_partner } from '../../api/put/edit_partner';
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const Form_Add_Edit_Partenaire = ({ setShowComponent }) => {
+export const Form_Add_Edit_Partner = ({ setShowComponent, partnerToEdit }) => {
     const location = useLocation();
     let collectionName = "Cadre";
     if (location.pathname.includes("BTP")) {
@@ -16,14 +18,23 @@ export const Form_Add_Edit_Partenaire = ({ setShowComponent }) => {
         collectionName = "Informatique";
     }
 
+    const { data: data_Get_partner } = Get_partner();
+    const { isPending: isPending_Add_partner, isSuccess: isSuccess_Add_partner, isError: isError_Add_partner, error: error_Add_partner, data: data_Add_partner, mutate: mutate_Add_partner } = Add_partner();
+    const { isPending: isPending_Edit_partner, isSuccess: isSuccess_Edit_partner, isError: isError_Edit_partner, error: error_Edit_partner, data: data_Edit_partner, mutate: mutate_Edit_partner } = Edit_partner();
 
     const [formData, setFormData] = useState({
-        name: ""
+        document_id: partnerToEdit?.document_id || (data_Get_partner?.find(d =>
+            collectionName == "Cadre" ? d.title === "partner_General" :
+                collectionName == "BTP" ? d.title === "partner_BTP" :
+                    collectionName == "Informatique" ? d.title === "partner_informatique" :
+                        false
+        )?._id || ""),
+        name: partnerToEdit?.partner?.name || ""
     });
 
-    const [previewImage, setPreviewImage] = useState(null);
-
-
+    const [previewImage, setPreviewImage] = useState(
+        partnerToEdit?.partner?.image ? `${API_URL}/api/v1/images/${partnerToEdit?.partner?.image}` : null
+    );
     const fileInputRef = useRef(null);
 
     const handleChange = (e) => {
@@ -42,8 +53,52 @@ export const Form_Add_Edit_Partenaire = ({ setShowComponent }) => {
             fileInputRef.current.click();
         }
     };
+    console.log(data_Get_partner)
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const fd = new FormData();
+        fd.append("document_id", formData.document_id);
+        fd.append("name", formData.name);
+
+        if (formData.image_file instanceof File) {
+            fd.append("image_file", formData.image_file);
+        }
+
+        if (partnerToEdit?.partner?.partner_id) {
+            fd.append("partner_id", partnerToEdit?.partner?.partner_id);
+        }
+
+        if (partnerToEdit?.partner) {
+            mutate_Edit_partner(fd);
+            console.log(partnerToEdit?.partner?.partner_id)
+            console.log(partnerToEdit?.document_id)
+        } else {
+            mutate_Add_partner(fd)
+        }
+    };
 
 
+    useEffect(() => {
+        if (isSuccess_Add_partner) {
+            if (data_Add_partner?.succes) {
+                toast.success(data_Add_partner.succes);
+                setShowComponent(0);
+            }
+            if (data_Add_partner?.detail) {
+                toast.info(data_Add_partner.detail);
+            }
+        }
+
+        if (isSuccess_Edit_partner) {
+            if (data_Edit_partner?.succes) {
+                toast.success(data_Edit_partner.succes);
+                setShowComponent(0);
+            }
+            if (data_Edit_partner?.detail) {
+                toast.info(data_Edit_partner.detail);
+            }
+        }
+    }, [isSuccess_Add_partner, isSuccess_Edit_partner])
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[1000]">
@@ -52,6 +107,7 @@ export const Form_Add_Edit_Partenaire = ({ setShowComponent }) => {
                     <X size={24} />
                 </button>
                 <form
+                    onSubmit={handleSubmit}
                     className="w-full p-4 md:p-12 overflow-auto no-scrollbar">
                     <h1 className="text-3xl font-bold mb-4">Ajouter un partenaire</h1>
                     <div className="w-full border-b md:border-b-0 md:border-r border-gray-200">
@@ -96,7 +152,6 @@ export const Form_Add_Edit_Partenaire = ({ setShowComponent }) => {
                     <div className="w-full  mt-4">
                         <div className="space-y-4">
                             <div className="flex  gap-4">
-
                                 <div className="w-full ">
                                     <label className="block text-sm font-medium text-gray-700 mb-1">
                                         Nom du partenaire
@@ -109,14 +164,47 @@ export const Form_Add_Edit_Partenaire = ({ setShowComponent }) => {
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none  bg-transparent"
                                     />
                                 </div>
+                                <div className="w-full ">
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        Catégories
+                                    </label>
+                                    <select
+                                        name="document_id"
+                                        value={formData.document_id}
+                                        onChange={handleChange}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none bg-transparent"
+                                    >
+                                        {data_Get_partner
+                                            ?.filter((data) => {
+                                                if (collectionName == "Cadre") {
+                                                    return data.title === "partner_General";
+                                                }
+                                                if (collectionName == "BTP") {
+                                                    return data.title === "partner_BTP";
+                                                }
+                                                if (collectionName == "Informatique") {
+                                                    return data.title === "partner_informatique";
+                                                }
+                                                return false;
+                                            })
+                                            .map((data) => (
+                                                <option key={data._id} value={data._id}>
+                                                    {data.title}
+                                                </option>
+                                            ))}
+                                    </select>
+
+                                </div>
                             </div>
                         </div>
+
                     </div>
                     <div className="mt-10 space-y-4">
                         <button
                             type="submit"
+                            disabled={isPending_Add_partner || isPending_Edit_partner}
                             className="w-full py-3 bg-[#003A1E] text-white rounded-md font-medium transition-colors">
-                            Soumettre
+                            {isPending_Add_partner || isPending_Edit_partner ? "Envoi en cours..." : "Soumettre"}
                         </button>
                     </div>
                 </form>

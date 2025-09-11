@@ -22,8 +22,8 @@ export const Resume = () => {
       </div>
       <div className="relative w-full max-w-5xl mt-10">
         {/* Central image */}
-        <div className="relative z-10 mx-auto w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white shadow-lg">
-          <div className="absolute inset-0 bg-blue-50 rounded-full -z-10"></div>
+        <div className="relative z-10 mx-auto w-64 h-[700px] md:w-80 md:h-[400px] rounded-md overflow-hidden border-4 border-white shadow-lg">
+          <div className="absolute inset-0 bg-blue-50  -z-10"></div>
           <img
             src="https://uploadthingy.s3.us-west-1.amazonaws.com/viBWmUyHREKma21kEmk1Bv/Screenshot_2025-09-04_102014.png"
             alt="Professional headshot"

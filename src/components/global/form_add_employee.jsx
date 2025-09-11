@@ -37,7 +37,6 @@ export const Form_Add_Employee = ({ setShowComponent, employeeToEdit }) => {
     const [previewImage, setPreviewImage] = useState(
         employeeToEdit?.employee?.image ? `${API_URL}/api/v1/images/${employeeToEdit?.employee?.image}` : null
     );
-
     const fileInputRef = useRef(null);
 
     const handleChange = (e) => {

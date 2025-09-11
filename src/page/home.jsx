@@ -11,7 +11,7 @@ import { FAQ } from '../components/home/FAQ'
 import { Form_Add_Employee } from '../components/global/form_add_employee';
 import { Confirm_Delete_Product } from '../components/global/confirm_delete_product';
 import { Homecomponent } from '../components/home/home';
-import {Form_Add_Edit_Partenaire} from '../components/global/form_add_edit_partner';
+import { Form_Add_Edit_Partner } from '../components/global/form_add_edit_partner';
 
 const Home = () => {
     const [showComponent, setShowComponent] = useState(0);
@@ -24,7 +24,7 @@ const Home = () => {
                 <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
                 <div className='flex flex-col w-full bg-gradient-to-r from-blue-50 to-[#FAFDE0]'>
-                    
+
                     {/* Header mobile avec menu hamburger */}
                     <div className="md:hidden flex items-center justify-between px-4 py-3 border-b border-gray-200">
                         <button onClick={() => setSidebarOpen(true)}>
@@ -38,7 +38,7 @@ const Home = () => {
                             <div className="flex-1 overflow-y-auto no-scrollbar md:shadow-[0_-10px_25px_-5px_rgba(0,0,0,0.2)] rounded-t-2xl md:pt-6">
                                 <Homecomponent setShowComponent={setShowComponent} />
                                 <Resume />
-                                <ClientLogos setShowComponent={setShowComponent}/>
+                                <ClientLogos setShowComponent={setShowComponent} />
                                 <FAQ />
                             </div>
                         </div>
@@ -50,7 +50,7 @@ const Home = () => {
                             <Form_Add_Employee setShowComponent={setShowComponent} employeeToEdit={showComponent} />
                         )}
 
-                         {(showComponent?.id == 4) && (<Form_Add_Edit_Partenaire setShowComponent={setShowComponent} />)}
+                        {(showComponent?.id == 4) && (<Form_Add_Edit_Partner setShowComponent={setShowComponent} partnerToEdit={showComponent} />)}
                         <Button_contact />
                         <ToastContainer position="bottom-center" />
                     </div>

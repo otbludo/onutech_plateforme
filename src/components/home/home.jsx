@@ -3,6 +3,8 @@ import { PlusIcon, Pencil, Trash } from 'lucide-react';
 import { useLocation } from "react-router-dom";
 import { Bar_search } from '../global/bar_search';
 
+import { PartnerscrolltSkeleton } from "../global/loader/loader_partner_carousel_home";
+
 import { Get_Employe } from '../../api/get/get_employe';
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -16,7 +18,7 @@ export const Homecomponent = ({ setShowComponent }) => {
     }
 
     const { isPending, isSuccess, error, data } = Get_Employe(collectionName);
-    const employees = data?.flatMap(group =>
+    const employees = (Array.isArray(data) ? data : []).flatMap(group =>
         group.employees.map(emp => ({
             ...emp,
             _id: group._id, // on rattache le document parent
@@ -24,8 +26,18 @@ export const Homecomponent = ({ setShowComponent }) => {
     ) || [];
 
     return (
-        <div className="w-full">
-            <div className="w-full gap-4 max-w-6xl mx-auto px-4 pt-16 pb-8">
+        <div className="w-full ">
+            <div className="relative w-full gap-4 max-w-6xl mx-auto px-4 pt-16 pb-8">
+                <video
+                className="absolute -top-[90px] left-0 right-0 object-cover w-full h-full md:min-h-screen opacity-10"
+                autoPlay
+                loop
+                muted
+                playsInline
+            >
+                <source src="./assets/img/background.mp4" type="video/mp4" />
+                Votre navigateur ne supporte pas la vidéo.
+            </video>
                 {/* Badge */}
                 <div className="flex justify-center mb-8">
                     <div className="bg-white rounded-full py-2 px-4 flex items-center shadow-sm">
@@ -74,35 +86,37 @@ export const Homecomponent = ({ setShowComponent }) => {
                             <PlusIcon size={20} className="text-gray-500" />
                         </button>
                     </div>
-                    <div className="flex space-x-4 animate-scroll mt-14">
-                        {employees?.map((emp) => (
-                            <div
-                                key={emp._id}
-                                className={`relative flex-shrink-0 w-48 h-56 rounded-lg overflow-hidden bg-purple-50`}
-                            >
-                                <img
-                                    src={`${API_URL}/api/v1/images/${emp.image}`}
-                                    alt="image employe"
-                                    className="w-full h-full object-cover"
-                                />
-                                <div className="absolute flex gap-4 right-2 bottom-2 z-[1000]">
-                                    <button
-                                        onClick={() => setShowComponent({ id: 3, employee: emp, document_id: emp._id })}
-                                        className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-gray-200 hover:bg-gray-50 shadow-md">
-                                        <Pencil size={15} className="text-gray-500" />
-                                    </button>
-                                    <button
-                                        onClick={() => setShowComponent({ id: 2, element: emp, document_id: emp._id, emplyoye_delete: true })}
-                                        className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-red-200 hover:bg-gray-50 shadow-md">
-                                        <Trash size={15} className="text-red-500"/>
-                                    </button>
-                                    <div className="w-6 h-6 mt-2 rounded-full bg-gradient-to-r from-blue-50 to-[#FAFDE0] overflow-hidden">
-                                        <img src="./assets/img/logo.png" alt="Assignee" className="w-full h-full object-cover" />
+                    {isPending ? (<PartnerscrolltSkeleton />) : (
+                        <div className="flex space-x-4 animate-scroll mt-14">
+                            {employees?.map((emp) => (
+                                <div
+                                    key={emp._id}
+                                    className={`relative flex-shrink-0 w-48 h-56 rounded-lg overflow-hidden bg-purple-50`}
+                                >
+                                    <img
+                                        src={`${API_URL}/api/v1/images/${emp.image}`}
+                                        alt="image employe"
+                                        className="w-full h-full object-cover"
+                                    />
+                                    <div className="absolute flex gap-4 right-2 bottom-2 z-[1000]">
+                                        <button
+                                            onClick={() => setShowComponent({ id: 3, employee: emp, document_id: emp._id })}
+                                            className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-gray-200 hover:bg-gray-50 shadow-md">
+                                            <Pencil size={15} className="text-gray-500" />
+                                        </button>
+                                        <button
+                                            onClick={() => setShowComponent({ id: 2, element: emp, document_id: emp._id, emplyoye_delete: true })}
+                                            className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-red-200 hover:bg-gray-50 shadow-md">
+                                            <Trash size={15} className="text-red-500" />
+                                        </button>
+                                        <div className="w-6 h-6 mt-2 rounded-full bg-gradient-to-r from-blue-50 to-[#FAFDE0] overflow-hidden">
+                                            <img src="./assets/img/logo.png" alt="Assignee" className="w-full h-full object-cover" />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

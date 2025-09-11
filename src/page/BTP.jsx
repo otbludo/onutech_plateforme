@@ -4,7 +4,7 @@ import { Footer } from '../components/global/footer';
 import { Sidebar } from '../components/global/sidebar';
 import { Bar_search } from '../components/global/bar_search';
 import { Button_contact } from "../components/global/button_contact";
-import {Form_Add_Employee} from '../components/global/form_add_employee';
+import { Form_Add_Employee } from '../components/global/form_add_employee';
 import { Form_Add_Produit } from '../components/global/form_add_product';
 import { Home } from '../components/BTP/home';
 import { Architecture } from '../components/BTP/architecture';
@@ -13,6 +13,7 @@ import { Sponsor } from '../components/global/sponsor';
 import { Employees } from '..//components/global/employees';
 import { Projets } from "../components/global/projet_realises";
 import { Confirm_Delete_Product } from '../components/global/confirm_delete_product';
+import { Form_Add_Edit_Partner } from '../components/global/form_add_edit_partner';
 
 const BTP = () => {
     const [showComponent, setShowComponent] = useState(0)
@@ -28,14 +29,16 @@ const BTP = () => {
                                 <Home />
                                 <Construction />
                                 <Architecture />
-                                <Sponsor />
+                                <Sponsor setShowComponent={setShowComponent} />
                                 <Employees setShowComponent={setShowComponent} />
                                 <Projets setShowComponent={setShowComponent} />
                             </div>
                         </div>
                         {(showComponent?.id == 1) && <Form_Add_Produit setShowComponent={setShowComponent} projectToEdit={showComponent} />}
                         {(showComponent?.id == 2) && <Confirm_Delete_Product setShowComponent={setShowComponent} elementToDelete={showComponent} />}
-                        {(showComponent?.id == 3) && <Form_Add_Employee setShowComponent={setShowComponent} employeeToEdit={showComponent}/>}
+                        {(showComponent?.id == 3) && <Form_Add_Employee setShowComponent={setShowComponent} employeeToEdit={showComponent} />}
+                        {(showComponent?.id == 4) && <Form_Add_Edit_Partner setShowComponent={setShowComponent} partnerToEdit={showComponent} />}
+
                         <Button_contact />
                         <ToastContainer position="bottom-center" />
                     </div>
