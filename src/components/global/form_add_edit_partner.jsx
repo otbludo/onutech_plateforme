@@ -151,7 +151,7 @@ export const Form_Add_Edit_Partner = ({ setShowComponent, partnerToEdit }) => {
                     </div>
                     <div className="w-full  mt-4">
                         <div className="space-y-4">
-                            <div className="flex  gap-4">
+                            <div className="flex flex-col  gap-4 md:flex-row">
                                 <div className="w-full ">
                                     <label className="block text-sm font-medium text-gray-700 mb-1">
                                         Nom du partenaire

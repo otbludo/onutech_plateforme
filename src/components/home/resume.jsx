@@ -11,13 +11,12 @@ export const Resume = () => {
     <div className="flex flex-col justify-center items-center mt-[100px]">
       <div className="max-w-5xl mx-auto text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 arsenal-sc-regular">
-          Why Choose
+          En savoir plus
           <br />
-          Masters in Me?
+          sur ONUtech
         </h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          Unlock your true potential and discover a world of opportunities that
-          align with your skills, interests, and aspirations
+          Decouvrez les differents poles d'activite de ONUtech et notre vision !
         </p>
       </div>
       <div className="relative w-full max-w-5xl mt-10">

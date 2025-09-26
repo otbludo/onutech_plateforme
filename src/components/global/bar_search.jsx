@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Search, X } from 'lucide-react';
 import { toast } from 'react-toastify';
 import { motion } from "framer-motion";
+import { PacmanLoader } from "react-spinners";
 import { Generative_groq } from '../../api/post/groq_generate';
 
 export const Bar_search = () => {
@@ -28,20 +29,20 @@ export const Bar_search = () => {
         }
         if (isError) {
             toast.error("error", error.TypeError);
-            console.log( error)
+            console.log(error)
         }
 
     }, [isSuccess, isError]);
 
     return (
-        <div className="relative max-w-4xl mx-auto mb-[120px] ">
-            <div className={`absolute  w-full  h-auto z-[100] p-4  ${showresponse && "bg-white  rounded-2xl "} `}>
+        <div className="relative max-w-4xl mx-auto mb-[120px] z-[20] ">
+            <div className={`absolute  w-full  h-auto p-4  ${showresponse && "bg-white  rounded-2xl "} `}>
 
 
                 <div className="max-w-3xl mx-auto mb-16">
                     <form
                         onSubmit={handleSubmit}
-                        className="bg-white rounded-full p-2 flex flex-col md:flex-row  shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
+                        className="bg-white rounded-full p-2 flex  flex-row  shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
                         <div className="flex items-center flex-1 px-4 py-2">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +60,9 @@ export const Bar_search = () => {
                             </svg>
                             <input
                                 type="text"
-                                placeholder="e.g. UX Designer"
+                                placeholder="Expliquez nous votre projet ici pour avoir un devis partiel"
+                                name="project"
+                                onChange={handleChange}
                                 className="w-full outline-none text-gray-700"
                             />
                         </div>
@@ -67,12 +70,19 @@ export const Bar_search = () => {
                         <button
                             type="submit"
                             disabled={isPending}
-                            className="bg-[#003A1E] text-white font-medium rounded-full px-8 py-3 transition-colors">
+                            className="bg-[#003A1E] text-white font-medium rounded-full px-8 py-3 transition-colors justify-center items-center">
 
                             {isPending ?
-                                "Envoi en cours..."
+                                <PacmanLoader
+                                    color={"#ffffff"}
+                                    loading={true}
+                                    
+                                    size={12}
+                                    aria-label="Loading Spinner"
+                                    data-testid="loader"
+                                />
                                 :
-                                "Search"
+                                "Soumettre"
                             }
                         </button>
                     </form>

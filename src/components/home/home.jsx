@@ -29,15 +29,15 @@ export const Homecomponent = ({ setShowComponent }) => {
         <div className="w-full ">
             <div className="relative w-full gap-4 max-w-6xl mx-auto px-4 pt-16 pb-8">
                 <video
-                className="absolute -top-[90px] left-0 right-0 object-cover w-full h-full md:min-h-screen opacity-10"
-                autoPlay
-                loop
-                muted
-                playsInline
-            >
-                <source src="./assets/img/background.mp4" type="video/mp4" />
-                Votre navigateur ne supporte pas la vidéo.
-            </video>
+                    className="absolute -top-[90px] left-0 right-0 object-cover w-full h-full md:min-h-screen opacity-10"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                >
+                    <source src="./assets/img/background.mp4" type="video/mp4" />
+                    Votre navigateur ne supporte pas la vidéo.
+                </video>
                 {/* Badge */}
                 <div className="flex justify-center mb-8">
                     <div className="bg-white rounded-full py-2 px-4 flex items-center shadow-sm">
@@ -58,7 +58,7 @@ export const Homecomponent = ({ setShowComponent }) => {
                             </svg>
                         </div>
                         <span className="text-sm font-medium">
-                            Your #1 Platform for Skill Sharing
+                            Votre #1 plateform pour vous accompagner
                         </span>
                     </div>
                 </div>
@@ -66,12 +66,12 @@ export const Homecomponent = ({ setShowComponent }) => {
                 {/* Headline */}
                 <div className="text-center mb-10">
                     <h1 className="text-4xl md:text-6xl font-bold text-blue-900 mb-4 arsenal-sc-regular">
-                        Showcase Your Mastery.
+                        Donnez vie a vos idees
                         <br />
-                        Get Connected
+                        Decouvrez ONUtech
                     </h1>
                     <p className="text-gray-600 max-w-2xl mx-auto">
-                        Create your profile, showcase your skills, and let employers find you.
+                        Que se soit dans le domaine de l'informatique ou du BTP, nous vous proposons des solutions sur mesure!
                     </p>
                 </div>
 
@@ -79,7 +79,7 @@ export const Homecomponent = ({ setShowComponent }) => {
                 <Bar_search />
                 {/* Profile Gallery Auto-Scroll */}
                 <div className="overflow-hidden relative w-full">
-                    <div className="flex justify-end items-end max-w-5xl mx-auto mb-4">
+                    <div className="flex justify-end items-end max-w-5xl mx-auto mb-2 ">
                         <button
                             onClick={() => setShowComponent({ id: 3 })}
                             className="w-9 h-9 rounded-full bg-white flex items-center justify-center border border-gray-200 hover:bg-gray-50 shadow-md">
@@ -87,7 +87,7 @@ export const Homecomponent = ({ setShowComponent }) => {
                         </button>
                     </div>
                     {isPending ? (<PartnerscrolltSkeleton />) : (
-                        <div className="flex space-x-4 animate-scroll mt-14">
+                        <div className="flex space-x-4 animate-scroll mt-10">
                             {employees?.map((emp) => (
                                 <div
                                     key={emp._id}
@@ -98,19 +98,33 @@ export const Homecomponent = ({ setShowComponent }) => {
                                         alt="image employe"
                                         className="w-full h-full object-cover"
                                     />
-                                    <div className="absolute flex gap-4 right-2 bottom-2 z-[1000]">
-                                        <button
-                                            onClick={() => setShowComponent({ id: 3, employee: emp, document_id: emp._id })}
-                                            className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-gray-200 hover:bg-gray-50 shadow-md">
-                                            <Pencil size={15} className="text-gray-500" />
-                                        </button>
-                                        <button
-                                            onClick={() => setShowComponent({ id: 2, element: emp, document_id: emp._id, emplyoye_delete: true })}
-                                            className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-red-200 hover:bg-gray-50 shadow-md">
-                                            <Trash size={15} className="text-red-500" />
-                                        </button>
-                                        <div className="w-6 h-6 mt-2 rounded-full bg-gradient-to-r from-blue-50 to-[#FAFDE0] overflow-hidden">
-                                            <img src="./assets/img/logo.png" alt="Assignee" className="w-full h-full object-cover" />
+
+                                    <div className="absolute flex flex-col gap-4 left-0 right-0 bottom-2 z-[1000] justify-center items-center">
+                                        <div className="inline-flex z-20 px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs">
+                                            <span>{emp.name}</span>
+                                        </div>
+                                        {emp.utils.map((utils, i) => (
+                                            <div 
+                                            key={i}
+                                            className="inline-flex z-20 px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs">
+                                                <span>{utils}</span>
+                                            </div>
+                                        ))}
+
+                                        <div className=" flex gap-4 w-full justify-end px-4">
+                                            <button
+                                                onClick={() => setShowComponent({ id: 3, employee: emp, document_id: emp._id })}
+                                                className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-gray-200 hover:bg-gray-50 shadow-md">
+                                                <Pencil size={15} className="text-gray-500" />
+                                            </button>
+                                            <button
+                                                onClick={() => setShowComponent({ id: 2, element: emp, document_id: emp._id, emplyoye_delete: true })}
+                                                className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-red-200 hover:bg-gray-50 shadow-md">
+                                                <Trash size={15} className="text-red-500" />
+                                            </button>
+                                            <div className="w-6 h-6 mt-2 rounded-full bg-gradient-to-r from-blue-50 to-[#FAFDE0] overflow-hidden">
+                                                <img src="./assets/img/logo.png" alt="Assignee" className="w-full h-full object-cover" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -22,11 +22,10 @@ export const ClientLogos = ({ setShowComponent }) => {
     <section className="w-full py-16 mt-8 px-4 mt-[100px]">
       <div className=" mx-auto text-center">
         <h2 className="text-4xl font-bold text-gray-800 mb-4  arsenal-sc-regular">
-          We are happy to work with incredible clients
+         Nos clients
         </h2>
         <p className="text-gray-600 mb-12 max-w-3xl mx-auto">
-          Fortune 500 companies and renowned global brands place their trust in
-          our products, solutions, and bespoke software development services.
+          Decouvrez nos client et les produit que nous avons realise en parcourant la plateform !
         </p>
 
         <div className="flex justify-end items-end max-w-5xl mx-auto mb-4">

@@ -53,7 +53,7 @@ export const Projets = ({ setShowComponent }) => {
 
                                                 </div>
                                                 <p className="text-sm text-gray-500 mb-3">{task.description}</p>
-                                                <a href={task.link} className="text-sm text-blue-500 ">{task.link}</a>
+                                                <a href={task.link} className="text-sm text-blue-500 block truncate">{task.link}</a>
 
                                                 <div className="flex items-center justify-between mt-3">
                                                     {task.dueDate && (
@@ -73,8 +73,6 @@ export const Projets = ({ setShowComponent }) => {
                                                             className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-red-200 hover:bg-gray-50 shadow-md">
                                                             <Trash size={15} className="text-red-500" />
                                                         </button>
-
-
                                                         <div className="w-6 h-6 rounded-full overflow-hidden">
                                                             <img src="./assets/img/logo.png" alt="Assignee" className="w-full h-full object-cover" />
                                                         </div>

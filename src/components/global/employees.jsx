@@ -27,6 +27,8 @@ export const Employees = ({ setShowComponent }) => {
     }))
   ) || [];
 
+  console.log("data:", data)
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       {/* Header */}
@@ -92,7 +94,7 @@ export const Employees = ({ setShowComponent }) => {
                   </span>
                 ))}
               </div>
-              <div className="flex w-full gap-4 items-end justify-end">
+              <div className="flex w-full gap-4 items-end justify-end mt-4">
                 <button
                   onClick={() => setShowComponent({ id: 3, employee: emp, document_id: emp._id })}
                   className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-gray-200 hover:bg-gray-50 shadow-md">

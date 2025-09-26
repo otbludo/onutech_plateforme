@@ -31,7 +31,7 @@ export const Form_Add_Employee = ({ setShowComponent, employeeToEdit }) => {
         notation: employeeToEdit?.employee?.notation || "",
         name: employeeToEdit?.employee?.name || "",
         statut: employeeToEdit?.employee?.statut || "",
-        utils: employeeToEdit?.employee?.utils || ""
+        utils: employeeToEdit?.employee?.utils || []
     });
 
     const [previewImage, setPreviewImage] = useState(
@@ -54,6 +54,74 @@ export const Form_Add_Employee = ({ setShowComponent, employeeToEdit }) => {
         if (fileInputRef.current) {
             fileInputRef.current.click();
         }
+    };
+
+    // Definition de la liste
+    const aptitudesParCollection = {
+        Cadre: ["Communication", "Leadership", "Management"],
+        BTP: [
+            // Compétences techniques
+            "BTP",
+            "Sécurité",
+            "Chantier",
+            "Planification",
+            "Matériaux",
+            "Topographie",
+            "Lecture de plans",
+            "Gestion de projet",
+            "Normes de construction",
+            "Contrôle qualité",
+            "Électricité",
+            "Plomberie",
+            "Mécanique du bâtiment",
+
+            // Soft skills
+            "Gestion d'équipe",
+            "Communication",
+            "Organisation",
+            "Respect des délais"
+        ],
+        Informatique: [
+            // Langages
+            "JavaScript", "TypeScript", "Python", "Java", "C#", "C++", "Go", "Ruby", "PHP",
+
+            // Frontend
+            "React", "Vue.js", "Angular", "Svelte", "Next.js", "Nuxt.js", "Tailwind CSS",
+
+            // Backend / Serveur
+            "Node.js", "Express.js", "Django", "Flask", "Spring Boot", "Ruby on Rails", "Laravel",
+
+            // Bases de données
+            "MySQL", "PostgreSQL", "MongoDB", "Redis", "Firebase", "SQLite",
+
+            // DevOps / Cloud
+            "Docker", "Kubernetes", "AWS", "Azure", "GCP", "CI/CD", "Terraform",
+
+            // Mobile
+            "React Native", "Flutter", "Swift", "Kotlin",
+
+            // Tests / Qualité
+            "Jest", "Mocha", "Chai", "Cypress", "Selenium", "JUnit",
+
+            // Outils / Autres compétences
+            "Git", "GitHub", "GitLab", "Webpack", "Babel", "REST API", "GraphQL", "Agile", "Scrum"
+        ]
+    };
+    const aptitudesDisponibles = aptitudesParCollection[collectionName] || [];
+
+    // Ajouter une aptitude
+    const addAptitude = (aptitude) => {
+        if (aptitude && !formData.utils.includes(aptitude)) {
+            setFormData((prev) => ({ ...prev, utils: [...prev.utils, aptitude] }));
+        }
+    };
+
+    // Supprimer une aptitude
+    const removeAptitude = (aptitude) => {
+        setFormData((prev) => ({
+            ...prev,
+            utils: prev.utils.filter((a) => a !== aptitude)
+        }));
     };
 
     const handleSubmit = (e) => {
@@ -79,8 +147,6 @@ export const Form_Add_Employee = ({ setShowComponent, employeeToEdit }) => {
         } else {
             mutate_Add_emplyee(fd);
         }
-
-
     };
 
     useEffect(() => {
@@ -104,8 +170,6 @@ export const Form_Add_Employee = ({ setShowComponent, employeeToEdit }) => {
             }
         }
     }, [isSuccess_Add_emplyee, isSuccess_Edit_emplyee])
-
-
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[1000]">
@@ -172,7 +236,7 @@ export const Form_Add_Employee = ({ setShowComponent, employeeToEdit }) => {
                                     />
                                 </div>
                             </div>
-                            <div className="flex  gap-4">
+                            <div className="flex flex-col  gap-4 md:flex-row">
                                 <div className="w-full ">
                                     <label className="block text-sm font-medium text-gray-700 mb-1">
                                         Catégories
@@ -202,7 +266,7 @@ export const Form_Add_Employee = ({ setShowComponent, employeeToEdit }) => {
 
 
                             </div>
-                            <div className="flex  gap-4">
+                            <div className="flex flex-col  gap-4 md:flex-row">
                                 <div className="w-full ">
                                     <label className="block text-sm font-medium text-gray-700 mb-1">
                                         Statut
@@ -215,17 +279,47 @@ export const Form_Add_Employee = ({ setShowComponent, employeeToEdit }) => {
                                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none  bg-transparent"
                                     />
                                 </div>
-                                <div className="w-full ">
+                                <div className="w-full">
                                     <label className="block text-sm font-medium text-gray-700 mb-1">
                                         Aptitudes
                                     </label>
+
+                                    {/* Prévisualisation des aptitudes choisies */}
+                                    <div className={`flex flex-wrap gap-2 ${formData.utils && "mb-2"}`}>
+                                        {formData.utils.map((apt) => (
+                                            <span
+                                                key={apt}
+                                                className="flex items-center bg-gradient-to-tr from-[#003A1E]/80 to-green-500/50  shadow-lg text-white text-sm px-2 py-1 rounded-full"
+                                            >
+                                                {apt}
+                                                <button
+                                                    type="button"
+                                                    onClick={() => removeAptitude(apt)}
+                                                    className="ml-2 text-black-500 hover:text-black-700"
+                                                >
+                                                    ×
+                                                </button>
+                                            </span>
+                                        ))}
+                                    </div>
+
+                                    {/* Liste déroulante pour choisir */}
                                     <select
-                                        name="utils"
-                                        value={formData.utils}
-                                        onChange={handleChange}
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none  bg-transparent">
-                                        <option value="ok">ok</option>
-                                        <option value="ok">ok</option>
+                                        onChange={(e) => {
+                                            addAptitude(e.target.value);
+                                            e.target.value = ""; // reset après ajout
+                                        }}
+                                        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-transparent outline-none"
+                                        defaultValue=""
+                                    >
+                                        <option value="" disabled>
+                                            Sélectionner une aptitude
+                                        </option>
+                                        {aptitudesDisponibles.map((apt) => (
+                                            <option key={apt} value={apt}>
+                                                {apt}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
                             </div>

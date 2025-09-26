@@ -55,7 +55,7 @@ export const FAQ = () => {
   return (
     <div className="max-w-5xl mx-auto mt-[90px] mb-4">
       <h1 className="text-4xl font-bold mb-8 text-gray-900 text-center arsenal-sc-regular">
-        Frequently asked Questions
+          Questions frequements poses !
       </h1>
 
       {/* Deux colonnes indépendantes */}

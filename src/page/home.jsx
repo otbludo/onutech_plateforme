@@ -12,6 +12,7 @@ import { Form_Add_Employee } from '../components/global/form_add_employee';
 import { Confirm_Delete_Product } from '../components/global/confirm_delete_product';
 import { Homecomponent } from '../components/home/home';
 import { Form_Add_Edit_Partner } from '../components/global/form_add_edit_partner';
+import { Show_Menu_Phone } from '../components/global/menu_phone';
 
 const Home = () => {
     const [showComponent, setShowComponent] = useState(0);
@@ -20,19 +21,9 @@ const Home = () => {
     return (
         <>
             <div className='flex'>
-                {/* Sidebar */}
                 <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-
                 <div className='flex flex-col w-full bg-gradient-to-r from-blue-50 to-[#FAFDE0]'>
-
-                    {/* Header mobile avec menu hamburger */}
-                    <div className="md:hidden flex items-center justify-between px-4 py-3 border-b border-gray-200">
-                        <button onClick={() => setSidebarOpen(true)}>
-                            <Menu size={28} />
-                        </button>
-                        <span className="font-bold text-lg">Onutech</span>
-                    </div>
-
+                    <Show_Menu_Phone setSidebarOpen={setSidebarOpen} />
                     <div className="flex h-screen overflow-hidden">
                         <div className="flex flex-col flex-1 px-[10px] md:px-[20px] md:pt-[20px] overflow-hidden">
                             <div className="flex-1 overflow-y-auto no-scrollbar md:shadow-[0_-10px_25px_-5px_rgba(0,0,0,0.2)] rounded-t-2xl md:pt-6">
